@@ -37,9 +37,10 @@
 
                         <Rectangle Margin="10,5" Height="1" Fill="Crimson" />
 
-                        
-                        
-                        
+                        <Button Content="Get Connected Devices" Command="{Binding GetConnDevCmd}" />
+
+
+
                     </StackPanel>
                 </ScrollViewer>
             </Border>

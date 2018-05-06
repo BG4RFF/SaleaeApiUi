@@ -16,7 +16,7 @@ namespace SaleaeApiUi
 
         internal void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            if( View == null )
+            if (View == null)
             {
                 View = sender as MainWindow;
             }
@@ -28,7 +28,7 @@ namespace SaleaeApiUi
         {
             get
             {
-                if( StatTxtLines.Count > 1024 )
+                if (StatTxtLines.Count > 1024)
                 {
                     var removeCount = StatTxtLines.Count - 1024;
                     StatTxtLines.RemoveRange(0, removeCount);
@@ -69,7 +69,6 @@ namespace SaleaeApiUi
             set { _Port = value; }
         }
 
-        //ConnectCmd
         private BasicCommand _ConnectCmd;
         public BasicCommand ConnectCmd
         {
@@ -98,7 +97,77 @@ namespace SaleaeApiUi
         }
 
 
-        //========================================================================================== 
+        //========================================================================================== GetConnDevCmd
+        private BasicCommand _GetConnDevCmd;
+        public BasicCommand GetConnDevCmd
+        {
+            get
+            {
+                if (_GetConnDevCmd == null)
+                {
+                    _GetConnDevCmd = new BasicCommand { ExecuteAction = (x) => GetConnDev(), CanExecuteFunc = ((obj) => { return true; }) };
+                }
+                return _GetConnDevCmd;
+            }
+        }
+
+        private void GetConnDev()
+        {
+            try
+            {
+                var devices = Client.GetConnectedDevices();
+
+                var types = new List<string>();
+                var names = new List<string>();
+                var ids = new List<string>();
+                var indx = new List<string>();
+                var active = new List<string>();
+
+                types.Add("Device Type");
+                names.Add("Name");
+                ids.Add("Device Id");
+                indx.Add("Index");
+                active.Add("Is Active");
+
+                foreach( var x in devices )
+                {
+                    types.Add(x.DeviceType.ToString());
+                    names.Add(x.Name);
+                    ids.Add(x.DeviceId.ToString());
+                    indx.Add(x.Index.ToString());
+                    active.Add(x.IsActive.ToString());
+                }
+
+                var widTypes = (from x in types select x.Length).Max() + 2;
+                var widNames = (from x in names select x.Length).Max() + 2;
+                var widIds = (from x in ids select x.Length).Max() + 2;
+                var widIndex = (from x in indx select x.Length).Max() + 2;
+                var widActive = (from x in active select x.Length).Max() + 2;
+
+                var newTxt = new List<string>();
+                var sb = new StringBuilder();
+                for( int i=0; i < types.Count; i++ )
+                {
+                    sb.Append(types[i].PadRight(widTypes));
+                    sb.Append(names[i].PadRight(widNames));
+                    sb.Append(ids[i].PadRight(widIds));
+                    sb.Append(indx[i].PadRight(widIndex));
+                    sb.Append(active[i].PadRight(widActive));
+                    newTxt.Add(sb.ToString());
+                    sb.Clear();
+                }
+
+                AddStatTxtLine(newTxt);
+            }
+            catch (Exception ex)
+            {
+                AddStatTxtLine("Get Devices FAILED: " + ex.Message);
+            }
+        }
+
+
+
+
         //========================================================================================== 
         //========================================================================================== 
         //========================================================================================== 
