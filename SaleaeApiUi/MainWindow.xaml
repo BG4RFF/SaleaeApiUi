@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SaleaeApiUi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Saleae API UI" Height="600" Width="900">
+
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    
+    
     <Grid>
-        
+        <DockPanel>
+            <Border DockPanel.Dock="left" Margin="5" Padding="5" BorderBrush="Blue" BorderThickness="1">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
+                    <StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Host" Margin="3"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Port" Margin="3"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Host}" MinWidth="100"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Port}" MinWidth="100"/>
+                        </Grid>
+                        
+                        <Button Content="Connect" Command="{Binding ConnectCmd}" />
+
+                        <Rectangle Margin="10,5" Height="1" Fill="Crimson" />
+
+                        
+                        
+                        
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Border DockPanel.Dock="Right" Margin="5" Padding="5" BorderBrush="Blue" BorderThickness="1">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
+                    <TextBox Text="{Binding StatTxt, Mode=OneWay}" TextWrapping="WrapWithOverflow" IsReadOnly="True" FontFamily="Consolas" />
+                </ScrollViewer>
+            </Border>
+
+        </DockPanel>
     </Grid>
 </Window>

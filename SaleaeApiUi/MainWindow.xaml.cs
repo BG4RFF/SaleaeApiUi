@@ -23,6 +23,13 @@ namespace SaleaeApiUi
         public MainWindow()
         {
             InitializeComponent();
+
+            Loaded += ViewModel.OnWindowLoaded;
+
         }
+
+
+        MainWindowViewModel ViewModel {  get { return DataContext as MainWindowViewModel; } }
+
     }
 }

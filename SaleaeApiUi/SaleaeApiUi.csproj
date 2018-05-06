@@ -62,12 +62,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\BasicCommand.cs" />
+    <Compile Include="Common\PeriodActionDelegated.cs" />
+    <Compile Include="Common\PeriodicAction.cs" />
+    <Compile Include="Common\ProcessUtils.cs" />
+    <Compile Include="Common\PropertyChangedNotifier.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Common\ViewUtils.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaleaeSocketApi\SaleaeSocketApi.csproj">
+      <Project>{82e967f2-27ce-41b1-ab98-3fa98b8fdf37}</Project>
+      <Name>SaleaeSocketApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
